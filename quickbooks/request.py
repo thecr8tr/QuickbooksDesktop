@@ -1,754 +1,943 @@
 __author__ = 'thecr8tr'
 
 from quickbooks import Quickbooks
+import xml.etree.ElementTree as ET
+
+##########################################
+# TODO Update all methods like Customer
+##########################################
+
+class search_parameter():
+    def __init__(self):
+        pass
+
+    def set_Customer_request_attributes(self):
+        '''
+        My IDE sure does hate me doing this, but it sure does work
+        Any suggestions on a better way to do this???
+        '''
+        self.qbcom.QBXMLMsgRq.set('onError', self.onError)
+        self.qbcom.CustomerQueryRq = ET.SubElement(self.qbcom.QBXMLMsgRq, self.request_ID)
+        self.qbcom.CustomerQueryRq.set('metaData', self.metaData)
+        if self.ListID:
+            self.qbcom.ListID = ET.SubElement(self.qbcom.CustomerQueryRq, 'ListID')
+            self.qbcom.ListID.text = self.ListID
+        elif self.FullName:
+            self.qbcom.FullName = ET.SubElement(self.qbcom.CustomerQueryRq, 'FullName')
+            self.qbcom.FullName.text = self.FullName
+        else:
+            if self.MaxReturned:
+                self.qbcom.MaxReturned = ET.SubElement(self.qbcom.CustomerQueryRq, 'MaxReturned')
+                self.qbcom.MaxReturned.text = self.MaxReturned
+            if self.ActiveStatus:
+                self.qbcom.ActiveStatus = ET.SubElement(self.qbcom.CustomerQueryRq, 'ActiveStatus')
+                self.qbcom.ActiveStatus.text = self.ActiveStatus
+            if self.FromModifiedDate:
+                self.qbcom.FromModifiedDate = ET.SubElement(self.qbcom.CustomerQueryRq, 'FromModifiedDate')
+                self.qbcom.FromModifiedDate.text = self.FromModifiedDate
+            if self.ToModifiedDate:
+                self.qbcom.ToModifiedDate = ET.SubElement(self.qbcom.CustomerQueryRq, 'ToModifiedDate')
+                self.qbcom.ToModifiedDate.text = self.ToModifiedDate
+            if self.NameFilter.MatchCriterion and self.Namefilter.Name:
+                self.qbcom.NameFilter = ET.SubElement(self.qbcom.CustomerQueryRq, 'NameFilter')
+                self.qbcom.NameFilter.text = self.NameFilter
+                self.qbcom.MatchCriterion = ET.SubElement(self.qbcom.NameFilter, 'MatchCriterion')
+                self.qbcom.MatchCriterion.text = self.MatchCriterion
+                self.qbcom.Name = ET.SubElement(self.qbcom.NameFilter, 'Name')
+                self.qbcom.Name.text = self.Name
+            elif self.NameRangeFilter.FromName and self.NameRangeFilter.ToName:
+                self.qbcom.NameRangeFilter = ET.SubElement(self.qbcom.CustomerQueryRq, 'NameRangeFilter')
+                self.qbcom.NameRangeFilter.text = self.NameRangeFilter
+                self.qbcom.FromName = ET.SubElement(self.qbcom.NameRangeFilter, 'FromName')
+                self.qbcom.FromName.text = self.FromName
+                self.qbcom.ToName = ET.SubElement(self.qbcom.NameRangeFilter, 'ToName')
+                self.qbcom.ToName.text = self.ToName
+            if self.TotalBalanceFilter.Operator and self.TotalBalanceFilter.Amount:
+                self.qbcom.TotalBalanceFilter = ET.SubElement(self.qbcom.CustomerQueryRq, 'TotalBalanceFilter')
+                self.qbcom.TotalBalanceFilter.text = self.TotalBalanceFilter
+                self.qbcom.Operator = ET.SubElement(self.qbcom.TotalBalanceFilter, 'Operator')
+                self.qbcom.Operator.text = self.Operator
+                self.qbcom.Amount = ET.SubElement(self.qbcom.TotalBalanceFilter, 'Amount')
+                self.qbcom.Amount.text = self.Amount
+            if self.CurrencyFilter.ListID:
+                self.qbcom.CurrencyFilter = ET.SubElement(self.qbcom.CustomerQueryRq, 'CurrencyFilter')
+                self.qbcom.CurrencyFilter.text = self.CurrencyFilter
+                self.qbcom.ListID = ET.SubElement(self.qbcom.CurrencyFilter, 'ListID')
+                self.qbcom.ListID.text = self.ListID
+            elif self.CurrencyFilter.FullName:
+                self.qbcom.CurrencyFilter = ET.SubElement(self.qbcom.CustomerQueryRq, 'CurrencyFilter')
+                self.qbcom.CurrencyFilter.text = self.CurrencyFilter
+                self.qbcom.FullName = ET.SubElement(self.qbcom.CurrencyFilter, 'FullName')
+                self.qbcom.FullName.text = self.FullName
+            if self.ClassFilter.ListID:
+                self.qbcom.ClassFilter = ET.SubElement(self.qbcom.CustomerQueryRq, 'ClassFilter')
+                self.qbcom.ClassFilter.text = self.ClassFilter
+                self.qbcom.ListID = ET.SubElement(self.qbcom.ClassFilter, 'ListID')
+                self.qbcom.ListID.text = self.ListID
+            elif self.ClassFilter.FullName:
+                self.qbcom.ClassFilter = ET.SubElement(self.qbcom.CustomerQueryRq, 'ClassFilter')
+                self.qbcom.ClassFilter.text = self.ClassFilter
+                self.qbcom.FullName = ET.SubElement(self.qbcom.ClassFilter, 'FullName')
+                self.qbcom.FullName.text = self.FullName
+            elif self.ClassFilter.ListIDWithChildren:
+                self.qbcom.ClassFilter = ET.SubElement(self.qbcom.CustomerQueryRq, 'ClassFilter')
+                self.qbcom.ClassFilter.text = self.ClassFilter
+                self.qbcom.ListIDWithChildren = ET.SubElement(self.qbcom.ClassFilter, 'ListIDWithChildren')
+                self.qbcom.ListIDWithChildren.text = self.ListIDWithChildren
+            elif self.ClassFilter.FullNameWithChildren:
+                self.qbcom.ClassFilter = ET.SubElement(self.qbcom.CustomerQueryRq, 'ClassFilter')
+                self.qbcom.ClassFilter.text = self.ClassFilter
+                self.qbcom.FullNameWithChildren = ET.SubElement(self.qbcom.ClassFilter, 'FullNameWithChildren')
+                self.qbcom.FullNameWithChildren.text = self.FullNameWithChildren
+        if self.IncludeRetElement:
+                self.qbcom.IncludeRetElement = ET.SubElement(self.qbcom.CustomerQueryRq, 'IncludeRetElement')
+                self.qbcom.IncludeRetElement.text = self.IncludeRetElement
+        if self.OwnerID:
+                self.qbcom.OwnerID = ET.SubElement(self.qbcom.CustomerQueryRq, 'OwnerID')
+                self.qbcom.OwnerID.text = self.OwnerID
 
 
 class query(object):
     def __init__(self, file):
+        '''There are more of these to map, but I just entered the first few to see how things go'''
         self.qbcom = Quickbooks(qb_file=file)
+
+        # how to proceed once qbxml encounters an error
+        self.onError = 'stopOnError' #options = continueOnError
+
+        # returns a count of items to be returned
+        self.metaData = 'NoMetaData' #options = MetaDataOnly, MetaDataAndResponseData
+
+        # returns only items with indicated name
+        self.FullName = None #FullName comes from QB File and Must include Parents if applicable
+
+        # returns only items with indicated list id number.
+        # Be careful!!!, List ID's are only specific within lists.
+        # (An id may be for a name and a transaction)
+        self.ListID = None #ListID comes from QB File
+
+        # limits the number of items returned
+        self.MaxReturned = None #options = any integer greater than zero as a string
+
+        # filters active status, default is ActiveOnly
+        self.ActiveStatus = None #options = ActiveOnly, InactiveOnly, All
+
+        # filters for items on or after specified date
+        self.FromModifiedDate = None #options = YYYY+'-'+MM+'-'+DD[+'T'+hh[+':'+mm[+':'+ss[+'-'+hh+':'+mm]]]]
+
+        # filters for items on or before specified date
+        self.ToModifiedDate = None #options = YYYY+'-'+MM+'-'+DD[+'T'+hh[+':'+mm[+':'+ss[+'-'+hh+':'+mm]]]]
+
+        # filters for object name
+        self.NameFilter = search_parameter()
+
+        # NameFilter search parameters
+        self.NameFilter.MatchCriterion = None # options = StartsWith, Contains, EndsWith
+
+        # NameFilter search value
+        self.NameFilter.Name = None # user supplied string to match from
+
+        # filters for object name between two user supplied names
+        self.NameRangeFilter = search_parameter()
+
+        # NameRangeFilter search start value (omit to search from beginning of list)
+        self.NameRangeFilter.FromName = None # user supplied string to start match
+
+        # NameRangeFilter search end value (omit to search to end of list)
+        self.NameRangeFilter.ToName = None # user supplied string to end match
+
+        # Filters based on the amount of the total balance (includes sub accounts)
+        self.TotalBalanceFilter = search_parameter()
+
+        # TotalBalanceFilter
+        self.TotalBalanceFilter.Operator = None # options = LessThan, LessThanEqual, Equal, GreaterThan,
+                                                          # GreaterThanEqual
+
+        # TotalBalanceFilter amount to search for
+        self.TotalBalanceFilter.Amount = None # user supplied string of a 2 decimal place dollar amount
+
+        # filters for object name between two user supplied names
+        self.CurrencyFilter = search_parameter()
+
+        # CurrencyFilter
+        self.CurrencyFilter.ListID = None # ListID comes from QB File
+
+        # CurrencyFilter
+        self.CurrencyFilter.FullName = None # FullName comes from QB File and Must include Parents if applicable
+
+        # filters for object name between two user supplied names
+        self.ClassFilter = search_parameter()
+
+        # ClassFilter
+        self.ClassFilter.ListID = None # ListID comes from QB File
+
+        # ClassFilter
+        self.ClassFilter.FullName = None # FullName comes from QB File and Must include Parents if applicable
+
+        # ClassFilter Returns item w/ ListID and its decendants
+        self.ClassFilter.ListIDWithChildren = None # ListID comes from QB File
+
+        # ClassFilter Returns item w/ FullName and its decendants
+        self.ClassFilter.FullNameWithChildren = None # FullName comes from QB File and Must include Parents if applicable
+
+        # You use this tag in the request to limit the data that will be returned in the response. Inside this tag
+        # you specify the name of the top-level element or aggregate that is to be returned in the response to the
+        # request. You cannot specify fields within an aggregate, for example, you cannot specify a City within an
+        # Address: you must specify Address and will get the entire address.
+        self.IncludeRetElement = None # options = ?????
+
+        # Refers to the owner of a data extension:
+        # If OwnerID is 0, this is a public data extension, also known as a custom field. Custom fields appear
+                # in the QuickBooks UI.
+        # If OwnerID is a GUID, for example {6B063959-81B0-4622-85D6-F548C8CCB517}, this field is a private data
+                # extension defined by an integrated application. Private data extensions do not appear in the
+                # QuickBooks UI.
+        # Note that OwnerID values are not case-sensitive, meaning that if you enter an OwnerID value with lower-case
+                # letters, the value will be saved and returned with upper-case letters.
+        # When you share a private data extension with another application, the other application must know both the
+                # OwnerID and the DataExtName, as these together form a data extension's unique name.
+        self.OwnerID = None # options = ????
 
     def AccountTaxLineInfo(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('AccountTaxLineInfo', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'AccountTaxLineInfoQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def AgingReport(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('AgingReport', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'AgingReportQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ARRefundCreditCard(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ARRefundCreditCard', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ARRefundCreditCardQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def BarCode(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('BarCode', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'BarCodeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def BillingRate(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('BillingRate', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'BillingRateQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def BillPaymentCheck(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('BillPaymentCheck', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'BillPaymentCheckQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def BillPaymentCreditCard(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('BillPaymentCreditCard', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'BillPaymentCreditCardQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def BillToPay(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('BillToPay', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'BillToPayQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def BudgetSummaryReport(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('BudgetSummaryReport', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'BudgetSummaryReportQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def BuildAssembly(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('BuildAssembly', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'BuildAssemblyQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Charge(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Charge', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ChargeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Check(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Check', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CheckQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Class(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Class', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ClassQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Company(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Company', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CompanyQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def CompanyActivity(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('CompanyActivity', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CompanyActivityQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def CreditCardCharge(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('CreditCardCharge', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CreditCardChargeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def CreditCardCredit(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('CreditCardCredit', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CreditCardCreditQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def CreditMemo(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('CreditMemo', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CreditMemoQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Currency(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Currency', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CurrencyQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def CustomDetailReport(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('CustomDetailReport', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CustomDetailReportQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Customer(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Customer', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CustomerQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def CustomerMsg(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('CustomerMsg', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CustomerMsgQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def CustomerType(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('CustomerType', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CustomerTypeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def CustomSummaryReport(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('CustomSummaryReport', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'CustomSummaryReportQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def DataEventRecoveryInfo(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('DataEventRecoveryInfo', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'DataEventRecoveryInfoQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def DataExtDef(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('DataExtDef', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'DataExtDefQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def DateDrivenTerms(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('DateDrivenTerms', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'DateDrivenTermsQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Deposit(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Deposit', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'DepositQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Employee(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Employee', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'EmployeeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Entity(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Entity', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'EntityQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Estimate(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Estimate', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'EstimateQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Form1099CategoryAccountMapping(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Form1099CategoryAccountMapping', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'Form1099CategoryAccountMappingQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def GeneralDetailReport(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('GeneralDetailReport', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'GeneralDetailReportQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Host(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Host', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'HostQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def InventoryAdjustment(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('InventoryAdjustment', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'InventoryAdjustmentQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def InventorySite(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('InventorySite', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'InventorySiteQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Invoice(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Invoice', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'InvoiceQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Item(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Item', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemAssembliesCanBuild(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemAssembliesCanBuild', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemAssembliesCanBuildQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemDiscount(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemDiscount', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemDiscountQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemFixedAsset(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemFixedAsset', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemFixedAssetQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemGroup(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemGroup', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemGroupQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemInventory(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemInventory', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemInventoryQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemInventoryAssembly(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemInventoryAssembly', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemInventoryAssemblyQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemNonInventory(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemNonInventory', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemNonInventoryQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemOtherCharge(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemOtherCharge', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemOtherChargeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemPayment(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemPayment', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemPaymentQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemReceipt(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemReceipt', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemReceiptQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemSalesTax(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemSalesTax', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemSalesTaxQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemSalesTaxGroup(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemSalesTaxGroup', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemSalesTaxGroupQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemService(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemService', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemServiceQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemSites(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemSites', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemSitesQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ItemSubtotal(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ItemSubtotal', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ItemSubtotalQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def JobReport(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('JobReport', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'JobReportQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def JobType(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('JobType', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'JobTypeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def JournalEntry(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('JournalEntry', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'JournalEntryQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Lead(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Lead', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'LeadQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ListDeleted(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('ListDeleted', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ListDeletedQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def OtherName(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('OtherName', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'OtherNameQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def PaymentMethod(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('PaymentMethod', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'PaymentMethodQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def PayrollDetailReport(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('PayrollDetailReport', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'PayrollDetailReportQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def PayrollItemNonWage(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('PayrollItemNonWage', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'PayrollItemNonWageQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def PayrollItemWage(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('PayrollItemWage', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'PayrollItemWageQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def PayrollSummaryReport(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('PayrollSummaryReport', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'PayrollSummaryReportQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Preferences(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Preferences', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'PreferencesQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def PriceLevel(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('PriceLevel', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'PriceLevelQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def PurchaseOrder(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('PurchaseOrder', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'PurchaseOrderQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ReceivePayment(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ReceivePayment', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ReceivePaymentQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ReceivePaymentToDeposit(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ReceivePaymentToDeposit', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ReceivePaymentToDepositQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def SalesOrder(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('SalesOrder', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'SalesOrderQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def SalesReceipt(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('SalesReceipt', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'SalesReceiptQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def SalesRep(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('SalesRep', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'SalesRepQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def SalesTaxCode(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('SalesTaxCode', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'SalesTaxCodeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def SalesTaxPayable(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('SalesTaxPayable', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'SalesTaxPayableQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def SalesTaxPaymentCheck(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('SalesTaxPaymentCheck', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'SalesTaxPaymentCheckQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ShipMethod(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ShipMethod', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ShipMethodQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def StandardTerms(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('StandardTerms', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'StandardTermsQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Template(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Template', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'TemplateQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Terms(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Terms', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'TermsQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def TimeReport(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('TimeReport', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'TimeReportQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def TimeTracking(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('TimeTracking', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'TimeTrackingQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def ToDo(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('ToDo', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'ToDoQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Transaction(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Transaction', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'TransactionQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Transfer(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Transfer', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'TransferQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def TransferInventory(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('TransferInventory', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'TransferInventoryQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def TxnDeleted(self):
         '''DOES NOT WORK'''
-        Request_Tag = self.qbcom.create_xml_tag_name('TxnDeleted', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'TxnDeletedQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def UnitOfMeasureSet(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('UnitOfMeasureSet', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'UnitOfMeasureSetQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Vehicle(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Vehicle', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'VehicleQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def VehicleMileage(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('VehicleMileage', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'VehicleMileageQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def Vendor(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('Vendor', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'VendorQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def VendorCredit(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('VendorCredit', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'VendorCreditQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def VendorType(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('VendorType', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'VendorTypeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
 
     def WorkersCompCode(self):
         ''''''
-        Request_Tag = self.qbcom.create_xml_tag_name('WorkersCompCode', 'query', 'rq')
-        self.qbcom.qbxml_query = self.qbcom.qbxml_query.format(Request_Tag, Request_Tag)
+        self.request_ID = 'WorkersCompCodeQueryRq'
+        search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
-        self.response = self.qbcom.request(self.qbcom.qbxml_query)
+        self.response = self.qbcom.request()
         self.qbcom.close_connection()
-
-

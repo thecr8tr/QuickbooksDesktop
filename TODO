@@ -5,3 +5,12 @@
 
 *** Fix Non-Working Requests
 
+*** Set up function to set attributes generically
+
+*** Fix Customer Query attributes (iterator, iteratorID)
+
+*** Error Checking to prevent incompatible filters from being applied at the same time
+
+*** Turn all Queries into a dict that has a value relating to its usage/workingness
+        and match for that item when submitted into a currently non existent query run function
+

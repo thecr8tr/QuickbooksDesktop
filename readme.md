@@ -12,6 +12,18 @@ Use this to connect to your quickbooks and read data.
 
 ###################################################################################
 
+06/01/2015:
+Changes:
+    refactored request.query.req.* to match new format
+    
+    added variables to the quickbooks.request.query.__init__ for attribute passing
+
+Additions:
+    Created quickbooks.request.set_Customer_request_attributes to parse for set attributes and 
+            build xml nodes for them.
+
+###################################################################################
+
 05/31/2015:
 Changes:  
     Turned quickbooks.Quickbooks into a set of functions that supplies basic request tools

@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from xml.dom import minidom
 import win32com.client
 
 class Quickbooks:
@@ -10,14 +11,8 @@ class Quickbooks:
         self.qb_file = qb_file
         self.app_name = "Quickbooks Python"
         self.ticket = None
-        self.qbxml_query = """
-        <?qbxml version="13.0"?>
-        <QBXML>
-            <QBXMLMsgsRq onError="stopOnError">
-                <{}></{}>
-            </QBXMLMsgsRq>
-        </QBXML>
-        """
+        self.QBXML = ET.Element('QBXML')
+        self.QBXMLMsgRq = ET.SubElement(self.QBXML, 'QBXMLMsgsRq')
 
     def version_suported(self):
         """
@@ -48,11 +43,16 @@ class Quickbooks:
         self.session.EndSession(self.ticket)
         self.session.CloseConnection()
 
-    def request(self, qbxml_query, query='CustomerQuery'):
+    def request(self):
 
         self.resp = None
         try:
-            return self.session.ProcessRequest(self.ticket, qbxml_query)
+            ### add xml header
+            xmltext = '<?xml version="1.0" ?>\n<?qbxml version="13.0"?>\n'
+            xmlbody = minidom.parseString(ET.tostring(self.QBXML))
+            xmltext += xmlbody.toprettyxml()
+
+            return self.session.ProcessRequest(self.ticket, xmltext)
         except Exception as e:
             print(e)
 
