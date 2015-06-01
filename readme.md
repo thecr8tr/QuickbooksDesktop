@@ -10,6 +10,21 @@ Use this to connect to your quickbooks and read data.
 - Quickbooks > Pro Version, Enterprise edition
 - Administrator account
 
+###################################################################################
+
+05/31/2015:
+Changes:  
+    Turned quickbooks.Quickbooks into a set of functions that supplies basic request tools
+
+Additions:
+    Created quickbooks.request to build a library of requests.  Added all query sets under
+            query class.  All query requests do not currently work and only pull all data
+    Created ManualRunner.  This is a simple implementation to show basic usage 
+            and for manual testing
+    TODO.  I like to have an idea of where I want to go.
+
+###################################################################################
+
 To install :
 - clone this repo
 
