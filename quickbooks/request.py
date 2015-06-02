@@ -2,6 +2,8 @@ __author__ = 'thecr8tr'
 
 from quickbooks import Quickbooks
 import xml.etree.ElementTree as ET
+from warnings import warn
+import sys
 
 ##########################################
 # TODO Update all methods like Customer
@@ -11,7 +13,7 @@ class search_parameter():
     def __init__(self):
         pass
 
-    def set_Customer_request_attributes(self):
+    def set_CustomerQueryRq_attributes(self):
         '''
         My IDE sure does hate me doing this, but it sure does work
         Any suggestions on a better way to do this???
@@ -95,7 +97,6 @@ class search_parameter():
         if self.OwnerID:
                 self.qbcom.OwnerID = ET.SubElement(self.qbcom.CustomerQueryRq, 'OwnerID')
                 self.qbcom.OwnerID.text = self.OwnerID
-
 
 class query(object):
     def __init__(self, file):
@@ -199,7 +200,6 @@ class query(object):
         }
         self.set_attributes()
 
-
     def set_attributes(self):
 
         # how to proceed once qbxml encounters an error
@@ -301,7 +301,12 @@ class query(object):
     def query_request(self):
         if not self.request_ID in self.query_dict or self.query_dict[self.request_ID] == 'DOES NOT WORK':
             raise ValueError('self.request_ID must be set with a proper value. See request.query.__init__.query_dict')
-        search_parameter.set_Customer_request_attributes(self)
+        try:
+            # Dynamically call the function to set the attributes for the object (ie search_parameter.set_CustomerQueryRq_attributes())
+            getattr(search_parameter, 'set_{}_attributes'.format(self.request_ID))(self)
+        except AttributeError:
+            warn('set_{}_attributes does not exist'.format(self.request_ID))
+
         self.qbcom.start_session()
         self.response = self.qbcom.request()
         self.qbcom.close_connection()
