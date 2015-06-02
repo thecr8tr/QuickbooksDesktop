@@ -101,6 +101,106 @@ class query(object):
     def __init__(self, file):
         '''There are more of these to map, but I just entered the first few to see how things go'''
         self.qbcom = Quickbooks(qb_file=file)
+        self.request_ID = ''
+        self.query_dict = {'AccountTaxLineInfoQueryRq': 'Working',
+                           'AgingReportQueryRq': 'DOES NOT WORK',
+                           'ARRefundCreditCardQueryRq': 'Working',
+                           'BarCodeQueryRq': 'Working',
+                           'BillingRateQueryRq': 'Working',
+                           'BillPaymentCheckQueryRq': 'Working',
+                           'BillPaymentCreditCardQueryRq': 'Working',
+                           'BillToPayQueryRq': 'DOES NOT WORK',
+                           'BudgetSummaryReportQueryRq': 'DOES NOT WORK',
+                           'BuildAssemblyQueryRq': 'Working',
+                           'ChargeQueryRq': 'Working',
+                           'CheckQueryRq': 'Working',
+                           'ClassQueryRq': 'Working',
+                           'CompanyQueryRq': 'Working',
+                           'CompanyActivityQueryRq': 'Working',
+                           'CreditCardChargeQueryRq': 'Working',
+                           'CreditCardCreditQueryRq': 'Working',
+                           'CreditMemoQueryRq': 'Working',
+                           'CurrencyQueryRq': 'Working',
+                           'CustomDetailReportQueryRq': 'DOES NOT WORK',
+                           'CustomerQueryRq': 'Working',
+                           'CustomerMsgQueryRq': 'Working',
+                           'CustomerTypeQueryRq': 'Working',
+                           'CustomSummaryReportQueryRq': 'DOES NOT WORK',
+                           'DataEventRecoveryInfoQueryRq': 'DOES NOT WORK',
+                           'DataExtDefQueryRq': 'Working',
+                           'DateDrivenTermsQueryRq': 'Working',
+                           'DepositQueryRq': 'Working',
+                           'EmployeeQueryRq': 'Working',
+                           'EntityQueryRq': 'Working',
+                           'EstimateQueryRq': 'Working',
+                           'Form1099CategoryAccountMappingQueryRq': 'Working',
+                           'GeneralDetailReportQueryRq': 'DOES NOT WORK',
+                           'HostQueryRq': 'Working',
+                           'InventoryAdjustmentQueryRq': 'Working',
+                           'InventorySiteQueryRq': 'Working',
+                           'InvoiceQueryRq': 'Working',
+                           'ItemQueryRq': 'Working',
+                           'ItemAssembliesCanBuildQueryRq': 'DOES NOT WORK',
+                           'ItemDiscountQueryRq': 'Working',
+                           'ItemFixedAssetQueryRq': 'Working',
+                           'ItemGroupQueryRq': 'Working',
+                           'ItemInventoryQueryRq': 'Working',
+                           'ItemInventoryAssemblyQueryRq': 'Working',
+                           'ItemNonInventoryQueryRq': 'Working',
+                           'ItemOtherChargeQueryRq': 'Working',
+                           'ItemPaymentQueryRq': 'Working',
+                           'ItemReceiptQueryRq': 'Working',
+                           'ItemSalesTaxQueryRq': 'Working',
+                           'ItemSalesTaxGroupQueryRq': 'Working',
+                           'ItemServiceQueryRq': 'Working',
+                           'ItemSitesQueryRq': 'Working',
+                           'ItemSubtotalQueryRq': 'Working',
+                           'JobReportQueryRq': 'DOES NOT WORK',
+                           'JobTypeQueryRq': 'Working',
+                           'JournalEntryQueryRq': 'Working',
+                           'LeadQueryRq': 'Working',
+                           'ListDeletedQueryRq': 'DOES NOT WORK',
+                           'OtherNameQueryRq': 'Working',
+                           'PaymentMethodQueryRq': 'Working',
+                           'PayrollDetailReportQueryRq': 'DOES NOT WORK',
+                           'PayrollItemNonWageQueryRq': 'Working',
+                           'PayrollItemWageQueryRq': 'Working',
+                           'PayrollSummaryReportQueryRq': 'DOES NOT WORK',
+                           'PreferencesQueryRq': 'Working',
+                           'PriceLevelQueryRq': 'Working',
+                           'PurchaseOrderQueryRq': 'Working',
+                           'ReceivePaymentQueryRq': 'Working',
+                           'ReceivePaymentToDepositQueryRq': 'Working',
+                           'SalesOrderQueryRq': 'Working',
+                           'SalesReceiptQueryRq': 'Working',
+                           'SalesRepQueryRq': 'Working',
+                           'SalesTaxCodeQueryRq': 'Working',
+                           'SalesTaxPayableQueryRq': 'Working',
+                           'SalesTaxPaymentCheckQueryRq': 'Working',
+                           'ShipMethodQueryRq': 'Working',
+                           'StandardTermsQueryRq': 'Working',
+                           'TemplateQueryRq': 'Working',
+                           'TermsQueryRq': 'Working',
+                           'TimeReportQueryRq': 'DOES NOT WORK',
+                           'TimeTrackingQueryRq': 'Working',
+                           'ToDoQueryRq': 'Working',
+                           'TransactionQueryRq': 'Working',
+                           'TransferQueryRq': 'Working',
+                           'TransferInventoryQueryRq': 'Working',
+                           'TxnDeletedQueryRq': 'DOES NOT WORK',
+                           'UnitOfMeasureSetQueryRq': 'Working',
+                           'VehicleQueryRq': 'Working',
+                           'VehicleMileageQueryRq': 'Working',
+                           'VendorQueryRq': 'Working',
+                           'VendorCreditQueryRq': 'Working',
+                           'VendorTypeQueryRq': 'Working',
+                           'WorkersCompCodeQueryRq': 'Working',
+                           '': 'DOES NOT WORK',
+        }
+        self.set_attributes()
+
+
+    def set_attributes(self):
 
         # how to proceed once qbxml encounters an error
         self.onError = 'stopOnError' #options = continueOnError
@@ -198,745 +298,9 @@ class query(object):
                 # OwnerID and the DataExtName, as these together form a data extension's unique name.
         self.OwnerID = None # options = ????
 
-    def AccountTaxLineInfo(self):
-        ''''''
-        self.request_ID = 'AccountTaxLineInfoQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def AgingReport(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'AgingReportQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ARRefundCreditCard(self):
-        ''''''
-        self.request_ID = 'ARRefundCreditCardQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def BarCode(self):
-        ''''''
-        self.request_ID = 'BarCodeQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def BillingRate(self):
-        ''''''
-        self.request_ID = 'BillingRateQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def BillPaymentCheck(self):
-        ''''''
-        self.request_ID = 'BillPaymentCheckQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def BillPaymentCreditCard(self):
-        ''''''
-        self.request_ID = 'BillPaymentCreditCardQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def BillToPay(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'BillToPayQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def BudgetSummaryReport(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'BudgetSummaryReportQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def BuildAssembly(self):
-        ''''''
-        self.request_ID = 'BuildAssemblyQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Charge(self):
-        ''''''
-        self.request_ID = 'ChargeQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Check(self):
-        ''''''
-        self.request_ID = 'CheckQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Class(self):
-        ''''''
-        self.request_ID = 'ClassQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Company(self):
-        ''''''
-        self.request_ID = 'CompanyQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def CompanyActivity(self):
-        ''''''
-        self.request_ID = 'CompanyActivityQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def CreditCardCharge(self):
-        ''''''
-        self.request_ID = 'CreditCardChargeQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def CreditCardCredit(self):
-        ''''''
-        self.request_ID = 'CreditCardCreditQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def CreditMemo(self):
-        ''''''
-        self.request_ID = 'CreditMemoQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Currency(self):
-        ''''''
-        self.request_ID = 'CurrencyQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def CustomDetailReport(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'CustomDetailReportQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Customer(self):
-        ''''''
-        self.request_ID = 'CustomerQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def CustomerMsg(self):
-        ''''''
-        self.request_ID = 'CustomerMsgQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def CustomerType(self):
-        ''''''
-        self.request_ID = 'CustomerTypeQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def CustomSummaryReport(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'CustomSummaryReportQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def DataEventRecoveryInfo(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'DataEventRecoveryInfoQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def DataExtDef(self):
-        ''''''
-        self.request_ID = 'DataExtDefQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def DateDrivenTerms(self):
-        ''''''
-        self.request_ID = 'DateDrivenTermsQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Deposit(self):
-        ''''''
-        self.request_ID = 'DepositQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Employee(self):
-        ''''''
-        self.request_ID = 'EmployeeQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Entity(self):
-        ''''''
-        self.request_ID = 'EntityQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Estimate(self):
-        ''''''
-        self.request_ID = 'EstimateQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Form1099CategoryAccountMapping(self):
-        ''''''
-        self.request_ID = 'Form1099CategoryAccountMappingQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def GeneralDetailReport(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'GeneralDetailReportQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Host(self):
-        ''''''
-        self.request_ID = 'HostQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def InventoryAdjustment(self):
-        ''''''
-        self.request_ID = 'InventoryAdjustmentQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def InventorySite(self):
-        ''''''
-        self.request_ID = 'InventorySiteQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Invoice(self):
-        ''''''
-        self.request_ID = 'InvoiceQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Item(self):
-        ''''''
-        self.request_ID = 'ItemQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemAssembliesCanBuild(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'ItemAssembliesCanBuildQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemDiscount(self):
-        ''''''
-        self.request_ID = 'ItemDiscountQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemFixedAsset(self):
-        ''''''
-        self.request_ID = 'ItemFixedAssetQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemGroup(self):
-        ''''''
-        self.request_ID = 'ItemGroupQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemInventory(self):
-        ''''''
-        self.request_ID = 'ItemInventoryQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemInventoryAssembly(self):
-        ''''''
-        self.request_ID = 'ItemInventoryAssemblyQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemNonInventory(self):
-        ''''''
-        self.request_ID = 'ItemNonInventoryQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemOtherCharge(self):
-        ''''''
-        self.request_ID = 'ItemOtherChargeQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemPayment(self):
-        ''''''
-        self.request_ID = 'ItemPaymentQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemReceipt(self):
-        ''''''
-        self.request_ID = 'ItemReceiptQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemSalesTax(self):
-        ''''''
-        self.request_ID = 'ItemSalesTaxQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemSalesTaxGroup(self):
-        ''''''
-        self.request_ID = 'ItemSalesTaxGroupQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemService(self):
-        ''''''
-        self.request_ID = 'ItemServiceQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemSites(self):
-        ''''''
-        self.request_ID = 'ItemSitesQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ItemSubtotal(self):
-        ''''''
-        self.request_ID = 'ItemSubtotalQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def JobReport(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'JobReportQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def JobType(self):
-        ''''''
-        self.request_ID = 'JobTypeQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def JournalEntry(self):
-        ''''''
-        self.request_ID = 'JournalEntryQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Lead(self):
-        ''''''
-        self.request_ID = 'LeadQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ListDeleted(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'ListDeletedQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def OtherName(self):
-        ''''''
-        self.request_ID = 'OtherNameQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def PaymentMethod(self):
-        ''''''
-        self.request_ID = 'PaymentMethodQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def PayrollDetailReport(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'PayrollDetailReportQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def PayrollItemNonWage(self):
-        ''''''
-        self.request_ID = 'PayrollItemNonWageQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def PayrollItemWage(self):
-        ''''''
-        self.request_ID = 'PayrollItemWageQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def PayrollSummaryReport(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'PayrollSummaryReportQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Preferences(self):
-        ''''''
-        self.request_ID = 'PreferencesQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def PriceLevel(self):
-        ''''''
-        self.request_ID = 'PriceLevelQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def PurchaseOrder(self):
-        ''''''
-        self.request_ID = 'PurchaseOrderQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ReceivePayment(self):
-        ''''''
-        self.request_ID = 'ReceivePaymentQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ReceivePaymentToDeposit(self):
-        ''''''
-        self.request_ID = 'ReceivePaymentToDepositQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def SalesOrder(self):
-        ''''''
-        self.request_ID = 'SalesOrderQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def SalesReceipt(self):
-        ''''''
-        self.request_ID = 'SalesReceiptQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def SalesRep(self):
-        ''''''
-        self.request_ID = 'SalesRepQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def SalesTaxCode(self):
-        ''''''
-        self.request_ID = 'SalesTaxCodeQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def SalesTaxPayable(self):
-        ''''''
-        self.request_ID = 'SalesTaxPayableQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def SalesTaxPaymentCheck(self):
-        ''''''
-        self.request_ID = 'SalesTaxPaymentCheckQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ShipMethod(self):
-        ''''''
-        self.request_ID = 'ShipMethodQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def StandardTerms(self):
-        ''''''
-        self.request_ID = 'StandardTermsQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Template(self):
-        ''''''
-        self.request_ID = 'TemplateQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Terms(self):
-        ''''''
-        self.request_ID = 'TermsQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def TimeReport(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'TimeReportQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def TimeTracking(self):
-        ''''''
-        self.request_ID = 'TimeTrackingQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def ToDo(self):
-        ''''''
-        self.request_ID = 'ToDoQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Transaction(self):
-        ''''''
-        self.request_ID = 'TransactionQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Transfer(self):
-        ''''''
-        self.request_ID = 'TransferQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def TransferInventory(self):
-        ''''''
-        self.request_ID = 'TransferInventoryQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def TxnDeleted(self):
-        '''DOES NOT WORK'''
-        self.request_ID = 'TxnDeletedQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def UnitOfMeasureSet(self):
-        ''''''
-        self.request_ID = 'UnitOfMeasureSetQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Vehicle(self):
-        ''''''
-        self.request_ID = 'VehicleQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def VehicleMileage(self):
-        ''''''
-        self.request_ID = 'VehicleMileageQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def Vendor(self):
-        ''''''
-        self.request_ID = 'VendorQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def VendorCredit(self):
-        ''''''
-        self.request_ID = 'VendorCreditQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def VendorType(self):
-        ''''''
-        self.request_ID = 'VendorTypeQueryRq'
-        search_parameter.set_Customer_request_attributes(self)
-        self.qbcom.start_session()
-        self.response = self.qbcom.request()
-        self.qbcom.close_connection()
-
-    def WorkersCompCode(self):
-        ''''''
-        self.request_ID = 'WorkersCompCodeQueryRq'
+    def query_request(self):
+        if not self.request_ID in self.query_dict or self.query_dict[self.request_ID] == 'DOES NOT WORK':
+            raise ValueError('self.request_ID must be set with a proper value. See request.query.__init__.query_dict')
         search_parameter.set_Customer_request_attributes(self)
         self.qbcom.start_session()
         self.response = self.qbcom.request()
