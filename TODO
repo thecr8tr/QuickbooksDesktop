@@ -13,3 +13,9 @@
         and match for that item when submitted into a currently non existent query run function
 
 *** Why does warning give verbatim text instead of formatting the string with the variable
+
+*** Check to see if setup.py works
+
+*** When building report query attribute setters, add ".*ReportType" tag. see page 98
+
+*** Utilize a validator method to check requests before they are submitted

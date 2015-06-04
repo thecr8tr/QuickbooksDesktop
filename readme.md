@@ -10,6 +10,21 @@ Use this to connect to your quickbooks and read data.
 - Quickbooks > Pro Version, Enterprise edition
 - Administrator account
 
+- ReportsQueryRq tables pg 93-98
+
+======================================================================================
+
+All items are weakly supported.  Requests may or may not work properly.
+
+06/02/2015
+Notes:
+-Session currently starts and stops with each request.  This may not be desirable bc user
+        may want to iterate over data, or perform multiple requests and w/out waiting for the 
+        session to restart every time
+
+Changes:
+-minor additions and modifications to response attributes
+
 ======================================================================================
 
 06/01/2015:
