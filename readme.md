@@ -5,16 +5,39 @@ Use this to connect to your quickbooks and read data.
 
 ###Requirments:
 
-- Windows #ARGGGHH !
-- win32com IMPORTANT !
+- Windows
+- win32com
+- xml
 - Quickbooks > Pro Version, Enterprise edition
 - Administrator account
-
+- It really helps to have the SDK and Desktop Reference for QB
+- 
 - ReportsQueryRq tables pg 93-98
 
 ======================================================================================
 
-All items are weakly supported.  Requests may or may not work properly.
+With the addition of attributes, only the following request are funcitonal:
+-AccountQuery
+-CheckQuery
+-CustomerQuery
+-VendorQuery
+-CheckAdd
+-CustomerAdd
+
+06/07/2015
+Notes:
+-Session currently starts and stops with each request.  This may not be desirable bc user
+        may want to iterate over data, or perform multiple requests and w/out waiting for the 
+        session to restart every time
+-Session complete much faster if the company file is open in QuickBooks.
+
+Changes:
+-Created add attributes and a few more Requests
+-Created xml2csv.py to allow transfer from xml data to csv format to open with excel
+
+======================================================================================
+
+All item queries are weakly supported.  Requests may or may not work properly.
 
 06/02/2015
 Notes:

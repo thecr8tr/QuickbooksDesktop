@@ -12,13 +12,13 @@ class Quickbooks:
         self.app_name = "Quickbooks Python"
         self.ticket = None
         self.QBXML = ET.Element('QBXML')
-        self.QBXMLMsgRq = ET.SubElement(self.QBXML, 'QBXMLMsgsRq')
 
     def version_suported(self):
         """
         Return The highest version of QBXML supported by the QB File
         iter over the SupportedQBXMLVersion and return the last value.
         """
+        version = None
         for ver in ET.fromstring(self.get('Host')).iter("SupportedQBXMLVersion"):
           version = ver.text
 
@@ -48,7 +48,9 @@ class Quickbooks:
         self.resp = None
         try:
             ### add xml header
+#            self.QBXMLMsgRq = ET.SubElement(self.QBXML, 'QBXMLMsgsRq')
             xmltext = '<?xml version="1.0" ?>\n<?qbxml version="13.0"?>\n'
+            print(ET.tostring(self.QBXML))
             xmlbody = minidom.parseString(ET.tostring(self.QBXML))
             xmltext += xmlbody.toprettyxml()
 
