@@ -11,7 +11,7 @@ Use this to connect to your quickbooks and read data.
 - Quickbooks > Pro Version, Enterprise edition
 - Administrator account
 - It really helps to have the SDK and Desktop Reference for QB
-- 
+
 - ReportsQueryRq tables pg 93-98
 
 ======================================================================================
