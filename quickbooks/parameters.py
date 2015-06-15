@@ -2395,10 +2395,10 @@ class search_parameter():
             self.qbcom.ItemGroupLineAdd = ET.SubElement(self.qbcom.CreditCardCreditAdd, 'ItemGroupLineAdd')
             if self.ItemGroupLineAdd.ItemGroupRef.ListID or self.ItemGroupLineAdd.ItemGroupRef.FullName:
                 self.qbcom.ItemGroupLineAdd_ItemGroupRef = ET.SubElement(self.qbcom.CreditCardCreditAdd, 'ItemGroupRef')
-                if self.ItemLineAdd.ItemGroupRef.ListID:
+                if self.ItmeGroupLineAdd.ItemGroupRef.ListID:
                     self.qbcom.ItemGroupLineAdd_ItemGroupRef_ListID = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'ListID')
                     self.qbcom.ItemGroupLineAdd_ItemGroupRef_ListID.text = self.ItemGroupLineAdd.ItemGroupRef.ListID
-                elif self.ItemLineAdd.ItemGroupRef.FullName:
+                elif self.ItmeGroupLineAdd.ItemGroupRef.FullName:
                     self.qbcom.ItemGroupLineAdd_ItemGroupRef_FullName = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'FullName')
                     self.qbcom.ItemGroupLineAdd_ItemGroupRef_FullName.text = self.ItemGroupLineAdd.ItemGroupRef.FullName
             if self.ItemGroupLineAdd.Quantity:
@@ -2409,18 +2409,18 @@ class search_parameter():
                 self.qbcom.ItemGroupLineAdd_UnitOfMeasure.text = self.ItemGroupLineAdd.UnitOfMeasure
             if self.ItemGroupLineAdd.InventorySiteRef.ListID or self.ItemGroupLineAdd.InventorySiteRef.FullName:
                 self.qbcom.ItemGroupLineAdd_InventorySiteRef = ET.SubElement(self.qbcom.CreditCardCreditAdd, 'InventorySiteRef')
-                if self.ItemLineAdd.InventorySiteRef.ListID:
+                if self.ItmeGroupLineAdd.InventorySiteRef.ListID:
                     self.qbcom.ItemGroupLineAdd_InventorySiteRef_ListID = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'ListID')
                     self.qbcom.ItemGroupLineAdd_InventorySiteRef_ListID.text = self.ItemGroupLineAdd.InventorySiteRef.ListID
-                elif self.ItemLineAdd.InventorySiteRef.FullName:
+                elif self.ItmeGroupLineAdd.InventorySiteRef.FullName:
                     self.qbcom.ItemGroupLineAdd_InventorySiteRef_FullName = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'FullName')
                     self.qbcom.ItemGroupLineAdd_InventorySiteRef_FullName.text = self.ItemGroupLineAdd.InventorySiteRef.FullName
             if self.ItemGroupLineAdd.InventorySiteLocationRef.ListID or self.ItemGroupLineAdd.InventorySiteLocationRef.FullName:
                 self.qbcom.ItemGroupLineAdd_InventorySiteLocationRef = ET.SubElement(self.qbcom.CreditCardCreditAdd, 'InventorySiteLocationRef')
-                if self.ItemLineAdd.InventorySiteLocationRef.ListID:
+                if self.ItmeGroupLineAdd.InventorySiteLocationRef.ListID:
                     self.qbcom.ItemGroupLineAdd_InventorySiteLocationRef_ListID = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'ListID')
                     self.qbcom.ItemGroupLineAdd_InventorySiteLocationRef_ListID.text = self.ItemGroupLineAdd.InventorySiteLocationRef.ListID
-                elif self.ItemLineAdd.InventorySiteLocationRef.FullName:
+                elif self.ItmeGroupLineAdd.InventorySiteLocationRef.FullName:
                     self.qbcom.ItemGroupLineAdd_InventorySiteLocationRef_FullName = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'FullName')
                     self.qbcom.ItemGroupLineAdd_InventorySiteLocationRef_FullName.text = self.ItemGroupLineAdd.InventorySiteLocationRef.FullName
             if self.ItemGroupLineAdd.DataExt.OwnerID or self.ItemGroupLineAdd.DataExt.DataExtName or self.ItemGroupLineAdd.DataExt.DataExtValue:
@@ -2555,4 +2555,545 @@ class search_parameter():
         if self.IncludeRetElement:
             for item in self.IncludeRetElemenet:
                 self.qbcom.IncludeRetElement = ET.SubElement(self.qbcom.DepositAddRq, 'IncludeRetElement')
+                self.qbcom.IncludeRetElement.text = item
+
+    def set_SalesReceiptAddRq_attributes(self):
+        '''
+        My IDE sure does hate me doing this, but it sure does work
+        Any suggestions on a better way to do this???
+        '''
+        self.qbcom.QBXMLMsgsRq.set('onError', self.onError)
+        self.qbcom.SalesReceiptAddRq = ET.SubElement(self.qbcom.QBXMLMsgsRq, 'SalesReceiptAddRq')
+        self.qbcom.SalesReceiptAdd = ET.SubElement(self.qbcom.SalesReceiptAddRq, 'SalesReceiptAdd')
+        if self.CustomerRef.ListID or self.CustomerRef.FullName:
+            self.qbcom.CustomerRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'CustomerRef')
+            if self.CustomerRef.ListID:
+                self.qbcom.CustomerRef_ListID = ET.SubElement(self.qbcom.CustomerRef, 'ListID')
+                self.qbcom.CustomerRef_ListID.text = self.CustomerRef.ListID
+            elif self.CustomerRef.FullName:
+                self.qbcom.CustomerRef_FullName = ET.SubElement(self.qbcom.CustomerRef, 'FullName')
+                self.qbcom.CustomerRef_FullName.text = self.CustomerRef.FullName
+        if self.ClassRef.ListID or self.ClassRef.FullName:
+            self.qbcom.ClassRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'ClassRef')
+            if self.ClassRef.ListID:
+                self.qbcom.ClassRef_ListID = ET.SubElement(self.qbcom.ClassRef, 'ListID')
+                self.qbcom.ClassRef_ListID.text = self.ClassRef.ListID
+            elif self.ClassRef.FullName:
+                self.qbcom.ClassRef_FullName = ET.SubElement(self.qbcom.ClassRef, 'FullName')
+                self.qbcom.ClassRef_FullName.text = self.ClassRef.FullName
+        if self.TemplateRef.ListID or self.TemplateRef.FullName:
+            self.qbcom.TemplateRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'TemplateRef')
+            if self.TemplateRef.ListID:
+                self.qbcom.TemplateRef_ListID = ET.SubElement(self.qbcom.TemplateRef, 'ListID')
+                self.qbcom.TemplateRef_ListID.text = self.TemplateRef.ListID
+            elif self.TemplateRef.FullName:
+                self.qbcom.TemplateRef_FullName = ET.SubElement(self.qbcom.TemplateRef, 'FullName')
+                self.qbcom.TemplateRef_FullName.text = self.TemplateRef.FullName
+        if self.TxnDate:
+            self.qbcom.TxnDate = ET.SubElement(self.qbcom.SalesReceiptAdd, 'TxnDate')
+            self.qbcom.TxnDate.text = self.TxnDate
+        if self.RefNumber:
+            self.qbcom.RefNumber = ET.SubElement(self.qbcom.SalesReceiptAdd, 'RefNumber')
+            self.qbcom.RefNumber.text = self.RefNumber
+        if (    self.BillAddress.Addr1 and
+                self.BillAddress.Addr2 and
+                self.BillAddress.Addr3 and
+                self.BillAddress.City and
+                self.BillAddress.State and
+                self.BillAddress.PostalCode and
+                self.BillAddress.Country and
+                not self.BillAddress.Addr4 and
+                not self.BillAddress.Addr5):
+            self.qbcom.BillAddress = ET.SubElement(self.qbcom.SalesReceiptAdd, 'BillAddress')
+            self.qbcom.BillAddress_Addr1 = ET.SubElement(self.qbcom.BillAddress, 'Addr1')
+            self.qbcom.BillAddress_Addr1.text = self.BillAddress.Addr1
+            self.qbcom.BillAddress_Addr2 = ET.SubElement(self.qbcom.BillAddress, 'Addr2')
+            self.qbcom.BillAddress_Addr2.text = self.BillAddress.Addr2
+            self.qbcom.BillAddress_Addr3 = ET.SubElement(self.qbcom.BillAddress, 'Addr3')
+            self.qbcom.BillAddress_Addr3.text = self.BillAddress.Addr3
+            self.qbcom.BillAddress_City = ET.SubElement(self.qbcom.BillAddress, 'City')
+            self.qbcom.BillAddress_City.text = self.BillAddress.City
+            self.qbcom.BillAddress_State = ET.SubElement(self.qbcom.BillAddress, 'State')
+            self.qbcom.BillAddress_State.text = self.BillAddress.State
+            self.qbcom.BillAddress_PostalCode = ET.SubElement(self.qbcom.BillAddress, 'PostalCode')
+            self.qbcom.BillAddress_PostalCode.text = self.BillAddress.PostalCode
+            if self.BillAddress.Country:
+                self.qbcom.BillAddress_Country = ET.SubElement(self.qbcom.BillAddress, 'Country')
+                self.qbcom.BillAddress_Country.text = self.BillAddress.Country
+            if self.BillAddress.Note:
+                self.qbcom.BillAddress_Note = ET.SubElement(self.qbcom.BillAddress, 'Note')
+                self.qbcom.BillAddress_Note.text = self.BillAddress.Note
+        if (    self.BillAddress.Addr1 and
+                self.BillAddress.Addr2 and
+                self.BillAddress.Addr3 and
+                self.BillAddress.Addr4 and
+                self.BillAddress.Addr5 and
+                not self.BillAddress.City and
+                not self.BillAddress.State and
+                not self.BillAddress.PostalCode and
+                not self.BillAddress.Country):
+            self.qbcom.BillAddress_ = ET.SubElement(self.qbcom.SalesReceiptAdd, 'BillAddress')
+            self.qbcom.BillAddress_Addr1 = ET.SubElement(self.qbcom.BillAddress, 'Addr1')
+            self.qbcom.BillAddress_Addr1.text = self.BillAddress.Addr1
+            self.qbcom.BillAddress_Addr2 = ET.SubElement(self.qbcom.BillAddress, 'Addr2')
+            self.qbcom.BillAddress_Addr2.text = self.BillAddress.Addr2
+            self.qbcom.BillAddress_Addr3 = ET.SubElement(self.qbcom.BillAddress, 'Addr3')
+            self.qbcom.BillAddress_Addr3.text = self.BillAddress.Addr3
+            self.qbcom.BillAddress_Addr4 = ET.SubElement(self.qbcom.BillAddress, 'Addr4')
+            self.qbcom.BillAddress_Addr4.text = self.BillAddress.Addr4
+            self.qbcom.BillAddress_Addr5 = ET.SubElement(self.qbcom.BillAddress, 'Addr5')
+            self.qbcom.BillAddress_Addr5.text = self.BillAddress.Addr5
+            if self.BillAddress.Note:
+                self.qbcom.BillAddress_Note = ET.SubElement(self.qbcom.BillAddress, 'Note')
+                self.qbcom.BillAddress_Note.text = self.BillAddress.Note
+        if (    self.ShipAddress.Addr1 and
+                self.ShipAddress.Addr2 and
+                self.ShipAddress.Addr3 and
+                self.ShipAddress.City and
+                self.ShipAddress.State and
+                self.ShipAddress.PostalCode and
+                not self.ShipAddress.Addr4 and
+                not self.ShipAddress.Addr5):
+            self.qbcom.ShipAddress = ET.SubElement(self.qbcom.SalesReceiptAdd, 'ShipAddress')
+            self.qbcom.ShipAddress_Addr1 = ET.SubElement(self.qbcom.ShipAddress, 'Addr1')
+            self.qbcom.ShipAddress_Addr1.text = self.ShipAddress.Addr1
+            self.qbcom.ShipAddress_Addr2 = ET.SubElement(self.qbcom.ShipAddress, 'Addr2')
+            self.qbcom.ShipAddress_Addr2.text = self.ShipAddress.Addr2
+            self.qbcom.ShipAddress_Addr3 = ET.SubElement(self.qbcom.ShipAddress, 'Addr3')
+            self.qbcom.ShipAddress_Addr3.text = self.ShipAddress.Addr3
+            self.qbcom.ShipAddress_City = ET.SubElement(self.qbcom.ShipAddress, 'City')
+            self.qbcom.ShipAddress_City.text = self.ShipAddress.City
+            self.qbcom.ShipAddress_State = ET.SubElement(self.qbcom.ShipAddress, 'State')
+            self.qbcom.ShipAddress_State.text = self.ShipAddress.State
+            self.qbcom.ShipAddress_PostalCode = ET.SubElement(self.qbcom.ShipAddress, 'PostalCode')
+            self.qbcom.ShipAddress_PostalCode.text = self.ShipAddress.PostalCode
+            if self.ShipAddress.Country:
+                self.qbcom.ShipAddress_Country = ET.SubElement(self.qbcom.ShipAddress, 'Country')
+                self.qbcom.ShipAddress_Country.text = self.ShipAddress.Country
+            if self.ShipAddress.Note:
+                self.qbcom.ShipAddress_Note = ET.SubElement(self.qbcom.ShipAddress, 'Note')
+                self.qbcom.ShipAddress_Note.text = self.ShipAddress.Note
+        if (    self.ShipAddress.Addr1 and
+                self.ShipAddress.Addr2 and
+                self.ShipAddress.Addr3 and
+                self.ShipAddress.Addr4 and
+                self.ShipAddress.Addr5 and
+                not self.ShipAddress.City and
+                not self.ShipAddress.State and
+                not self.ShipAddress.PostalCode and
+                not self.ShipAddress.Country):
+            self.qbcom.ShipAddress = ET.SubElement(self.qbcom.SalesReceiptAdd, 'ShipAddress')
+            self.qbcom.ShipAddress_Addr1 = ET.SubElement(self.qbcom.ShipAddress, 'Addr1')
+            self.qbcom.ShipAddress_Addr1.text = self.ShipAddress.Addr1
+            self.qbcom.ShipAddress_Addr2 = ET.SubElement(self.qbcom.ShipAddress, 'Addr2')
+            self.qbcom.ShipAddress_Addr2.text = self.ShipAddress.Addr2
+            self.qbcom.ShipAddress_Addr3 = ET.SubElement(self.qbcom.ShipAddress, 'Addr3')
+            self.qbcom.ShipAddress_Addr3.text = self.ShipAddress.Addr3
+            self.qbcom.ShipAddress_Addr4 = ET.SubElement(self.qbcom.ShipAddress, 'Addr4')
+            self.qbcom.ShipAddress_Addr4.text = self.ShipAddress.Addr4
+            self.qbcom.ShipAddress_Addr5 = ET.SubElement(self.qbcom.ShipAddress, 'Addr5')
+            self.qbcom.ShipAddress_Addr5.text = self.ShipAddress.Addr5
+            if self.ShipAddress.Note:
+                self.qbcom.ShipAddress_Note = ET.SubElement(self.qbcom.ShipAddress, 'Note')
+                self.qbcom.ShipAddress_Note.text = self.ShipAddress.Note
+        if self.IsPending:
+            self.qbcom.IsPending = ET.SubElement(self.qbcom.SalesReceiptAdd, 'IsPending')
+            self.qbcom.IsPending.text = self.IsPending
+        if self.CheckNumber:
+            self.qbcom.CheckNumber = ET.SubElement(self.qbcom.SalesReceiptAdd, 'CheckNumber')
+            self.qbcom.CheckNumber.text = self.CheckNumber
+        if self.PaymentMethodRef.ListID or self.PaymentMethodRef.FullName:
+            self.qbcom.PaymentMethodRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'PaymentMethodRef')
+            if self.PaymentMethodRef.ListID:
+                self.qbcom.PaymentMethodRef_ListID = ET.SubElement(self.qbcom.PaymentMethodRef, 'ListID')
+                self.qbcom.PaymentMethodRef_ListID.text = self.PaymentMethodRef.ListID
+            elif self.PaymentMethodRef.FullName:
+                self.qbcom.PaymentMethodRef_FullName = ET.SubElement(self.qbcom.PaymentMethodRef, 'FullName')
+                self.qbcom.PaymentMethodRef_FullName.text = self.PaymentMethodRef.FullName
+        if self.PaymentMethodRef.ListID or self.PaymentMethodRef.FullName:
+            self.qbcom.PaymentMethodRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'PaymentMethodRef')
+            if self.PaymentMethodRef.ListID:
+                self.qbcom.PaymentMethodRef_ListID = ET.SubElement(self.qbcom.PaymentMethodRef, 'ListID')
+                self.qbcom.PaymentMethodRef_ListID.text = self.PaymentMethodRef.ListID
+            elif self.PaymentMethodRef.FullName:
+                self.qbcom.PaymentMethodRef_FullName = ET.SubElement(self.qbcom.PaymentMethodRef, 'FullName')
+                self.qbcom.PaymentMethodRef_FullName.text = self.PaymentMethodRef.FullName
+        if self.DueDate:
+            self.qbcom.DueDate = ET.SubElement(self.qbcom.SalesReceiptAdd, 'DueDate')
+            self.qbcom.DueDate.text = self.DueDate
+        if self.SalesRepRef.ListID or self.SalesRepRef.FullName:
+            self.qbcom.SalesRepRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'SalesRepRef')
+            if self.SalesRepRef.ListID:
+                self.qbcom.SalesRepRef_ListID = ET.SubElement(self.qbcom.SalesRepRef, 'ListID')
+                self.qbcom.SalesRepRef_ListID.text = self.SalesRepRef.ListID
+            elif self.SalesRepRef.FullName:
+                self.qbcom.SalesRepRef_FullName = ET.SubElement(self.qbcom.SalesRepRef, 'FullName')
+                self.qbcom.SalesRepRef_FullName.text = self.SalesRepRef.FullName
+        if self.ShipDate:
+            self.qbcom.ShipDate = ET.SubElement(self.qbcom.SalesReceiptAdd, 'ShipDate')
+            self.qbcom.ShipDate.text = self.ShipDate
+        if self.ShipMethodRef.ListID or self.ShipMethodRef.FullName:
+            self.qbcom.ShipMethodRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'ShipMethodRef')
+            if self.ShipMethodRef.ListID:
+                self.qbcom.ShipMethodRef_ListID = ET.SubElement(self.qbcom.ShipMethodRef, 'ListID')
+                self.qbcom.ShipMethodRef_ListID.text = self.ShipMethodRef.ListID
+            elif self.ShipMethodRef.FullName:
+                self.qbcom.ShipMethodRef_FullName = ET.SubElement(self.qbcom.ShipMethodRef, 'FullName')
+                self.qbcom.ShipMethodRef_FullName.text = self.ShipMethodRef.FullName
+        if self.FOB:
+            self.qbcom.FOB = ET.SubElement(self.qbcom.SalesReceiptAdd, 'FOB')
+            self.qbcom.FOB.text = self.FOB
+        if self.ItemSalesTaxRef.ListID or self.ItemSalesTaxRef.FullName:
+            self.qbcom.ItemSalesTaxRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'ItemSalesTaxRef')
+            if self.ItemSalesTaxRef.ListID:
+                self.qbcom.ItemSalesTaxRef_ListID = ET.SubElement(self.qbcom.ItemSalesTaxRef, 'ListID')
+                self.qbcom.ItemSalesTaxRef_ListID.text = self.ItemSalesTaxRef.ListID
+            elif self.ItemSalesTaxRef.FullName:
+                self.qbcom.ItemSalesTaxRef_FullName = ET.SubElement(self.qbcom.ItemSalesTaxRef, 'FullName')
+                self.qbcom.ItemSalesTaxRef_FullName.text = self.ItemSalesTaxRef.FullName
+        if self.Memo:
+            self.qbcom.Memo = ET.SubElement(self.qbcom.SalesReceiptAdd, 'Memo')
+            self.qbcom.Memo.text = self.Memo
+        if self.CustomerMsgRef.ListID or self.CustomerMsgRef.FullName:
+            self.qbcom.CustomerMsgRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'CustomerMsgRef')
+            if self.CustomerMsgRef.ListID:
+                self.qbcom.CustomerMsgRef_ListID = ET.SubElement(self.qbcom.CustomerMsgRef, 'ListID')
+                self.qbcom.CustomerMsgRef_ListID.text = self.CustomerMsgRef.ListID
+            elif self.CustomerMsgRef.FullName:
+                self.qbcom.CustomerMsgRef_FullName = ET.SubElement(self.qbcom.CustomerMsgRef, 'FullName')
+                self.qbcom.CustomerMsgRef_FullName.text = self.CustomerMsgRef.FullName
+        if self.IsToBePrinted:
+            self.qbcom.IsToBePrinted = ET.SubElement(self.qbcom.SalesReceiptAdd, 'IsToBePrinted')
+            self.qbcom.IsToBePrinted.text = self.IsToBePrinted
+        if self.IsToBeEmailed:
+            self.qbcom.IsToBeEmailed = ET.SubElement(self.qbcom.SalesReceiptAdd, 'IsToBeEmailed')
+            self.qbcom.IsToBeEmailed.text = self.IsToBeEmailed
+        if self.CustomerSalesTaxCodeRef.ListID or self.CustomerSalesTaxCodeRef.FullName:
+            self.qbcom.CustomerSalesTaxCodeRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'CustomerSalesTaxCodeRef')
+            if self.CustomerSalesTaxCodeRef.ListID:
+                self.qbcom.CustomerSalesTaxCodeRef_ListID = ET.SubElement(self.qbcom.CustomerSalesTaxCodeRef, 'ListID')
+                self.qbcom.CustomerSalesTaxCodeRef_ListID.text = self.CustomerSalesTaxCodeRef.ListID
+            elif self.CustomerSalesTaxCodeRef.FullName:
+                self.qbcom.CustomerSalesTaxCodeRef_FullName = ET.SubElement(self.qbcom.CustomerSalesTaxCodeRef, 'FullName')
+                self.qbcom.CustomerSalesTaxCodeRef_FullName.text = self.CustomerSalesTaxCodeRef.FullName
+        if self.DepositToAccountRef.ListID or self.DepositToAccountRef.FullName:
+            self.qbcom.DepositToAccountRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'DepositToAccountRef')
+            if self.DepositToAccountRef.ListID:
+                self.qbcom.DepositToAccountRef_ListID = ET.SubElement(self.qbcom.DepositToAccountRef, 'ListID')
+                self.qbcom.DepositToAccountRef_ListID.text = self.DepositToAccountRef.ListID
+            elif self.DepositToAccountRef.FullName:
+                self.qbcom.DepositToAccountRef_FullName = ET.SubElement(self.qbcom.DepositToAccountRef, 'FullName')
+                self.qbcom.DepositToAccountRef_FullName.text = self.DepositToAccountRef.FullName
+        if (self.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardNumber or
+            self.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultCode):
+            self.qbcom.CreditCardTxnInfo = ET.SubElement(self.qbcom.SalesReceiptAdd, 'CreditCardTxnInfo')
+            if (self.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardNumber):
+                self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo = ET.SubElement(self.qbcom.CreditCardTxnInfo, 'CreditCardTxnInputInfo')
+                if self.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardNumber:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardNumber = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CreditCardNumber')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardNumber.text = self.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardNumber
+                if self.CreditCardTxnInfo.CreditCardTxnInputInfo.ExpirationMonth:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_ExpirationMonth = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'ExpirationMonth')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_ExpirationMonth.text = self.CreditCardTxnInfo.CreditCardTxnInputInfo.ExpirationMonth
+                if self.CreditCardTxnInfo.CreditCardTxnInputInfo.ExpirationYear:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_ExpirationYear = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'ExpirationYear')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_ExpirationYear.text = self.CreditCardTxnInfo.CreditCardTxnInputInfo.ExpirationYear
+                if self.CreditCardTxnInfo.CreditCardTxnInputInfo.NameOnCard:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_NameOnCard = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'NameOnCard')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_NameOnCard.text = self.CreditCardTxnInfo.CreditCardTxnInputInfo.NameOnCard
+                if self.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardAddress:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardAddress = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CreditCardAddress')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardAddress.text = self.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardAddress
+                if self.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardPostalCode:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardPostalCode = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CreditCardPostalCode')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardPostalCode.text = self.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardPostalCode
+                if self.CreditCardTxnInfo.CreditCardTxnInputInfo.CommercialCardCode:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CommercialCardCode = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CommercialCardCode')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CommercialCardCode.text = self.CreditCardTxnInfo.CreditCardTxnInputInfo.CommercialCardCode
+                if self.CreditCardTxnInfo.CreditCardTxnInputInfo.TransactionMode:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_TransactionMode = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'TransactionMode')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_TransactionMode.text = self.CreditCardTxnInfo.CreditCardTxnInputInfo.TransactionMode
+                if self.CreditCardTxnInfo.CreditCardTxnInputInfo.CrediCardTxnType:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CrediCardTxnType = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CrediCardTxnType')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnInputInfo_CrediCardTxnType.text = self.CreditCardTxnInfo.CreditCardTxnInputInfo.CrediCardTxnType
+            if (self.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultCode):
+                self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo = ET.SubElement(self.qbcom.CreditCardTxnInfo, 'CreditCardTxnResultInfo')
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultCode:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_ResultCode = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'ResultCode')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_ResultCode.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultCode
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultMessage:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_ResultMessage = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'ResultMessage')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_ResultMessage.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultMessage
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.CreditCardTransID:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_CreditCardTransID = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'CreditCardTransID')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_CreditCardTransID.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.CreditCardTransID
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.MerchantAccountNumber:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_MerchantAccountNumber = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'MerchantAccountNumber')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_MerchantAccountNumber.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.MerchantAccountNumber
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.AuthorizationCode:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_AuthorizationCode = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'AuthorizationCode')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_AuthorizationCode.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.AuthorizationCode
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.AVSStreet:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_AVSStreet = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'AVSStreet')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_AVSStreet.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.AVSStreet
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.AVSZip:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_AVSZip = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'AVSZip')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_AVSZip.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.AVSZip
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.CardSecurityCodeMatch:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_CardSecurityCodeMatch = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'CardSecurityCodeMatch')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_CardSecurityCodeMatch.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.CardSecurityCodeMatch
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.ReconBatchID:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_ReconBatchID = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'ReconBatchID')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_ReconBatchID.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.ReconBatchID
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.PaymentGroupingCode:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_PaymentGroupingCode = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'PaymentGroupingCode')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_PaymentGroupingCode.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.PaymentGroupingCode
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.PaymentStatus:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_PaymentStatus = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'PaymentStatus')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_PaymentStatus.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.PaymentStatus
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.TxnAuthorizationTime:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_TxnAuthorizationTime = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'TxnAuthorizationTime')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_TxnAuthorizationTime.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.TxnAuthorizationTime
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.TxnAuthorizationStamp:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_TxnAuthorizationStamp = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'TxnAuthorizationStamp')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_TxnAuthorizationStamp.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.TxnAuthorizationStamp
+                if self.CreditCardTxnInfo.CreditCardTxnResultInfo.ClientTransID:
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_ClientTransID = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'ClientTransID')
+                    self.qbcom.CreditCardTxnInfo_CreditCardTxnResultInfo_ClientTransID.text = self.CreditCardTxnInfo.CreditCardTxnResultInfo.ClientTransID
+        if (self.Other):
+            self.qbcom.Other = ET.SubElement(self.qbcom.SalesReceiptAdd, 'Other')
+            self.qbcom.Other.text = self.Other
+        if (self.ExchangeRate):
+            self.qbcom.ExchangeRate = ET.SubElement(self.qbcom.SalesReceiptAdd, 'ExchangeRate')
+            self.qbcom.ExchangeRate.text = self.ExchangeRate
+        if (self.ExternalGUID):
+            self.qbcom.ExternalGUID = ET.SubElement(self.qbcom.SalesReceiptAdd, 'ExternalGUID')
+            self.qbcom.ExternalGUID.text = self.ExternalGUID
+        if self.SalesReceiptLineAdd.ItemRef.ListID or self.SalesReceiptLineAdd.ItemRef.FullName:
+            self.qbcom.SalesReceiptLineAdd = ET.SubElement(self.qbcom.SalesReceiptAdd, 'SalesReceiptLineAdd')
+            if self.SalesReceiptLineAdd.ItemRef.ListID or self.SalesReceiptLineAdd.ItemRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_ItemRef = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'ItemRef')
+                if self.SalesReceiptLineAdd.ItemRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_ItemRef_ListID = ET.SubElement(self.qbcom.SalesReceiptLineAdd_ItemRef, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_ItemRef_ListID.text = self.SalesReceiptLineAdd.ItemRef.ListID
+                elif self.SalesReceiptLineAdd.ItemRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_ItemRef_FullName = ET.SubElement(self.qbcom.SalesReceiptLineAdd_ItemRef, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_ItemRef_FullName.text = self.SalesReceiptLineAdd.ItemRef.FullName
+            if self.SalesReceiptLineAdd.Desc:
+                self.qbcom.SalesReceiptLineAdd_Desc = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'Desc')
+                self.qbcom.SalesReceiptLineAdd_Desc.text = self.SalesReceiptLineAdd.Desc
+            if self.SalesReceiptLineAdd.Quantity:
+                self.qbcom.SalesReceiptLineAdd_Quantity = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'Quantity')
+                self.qbcom.SalesReceiptLineAdd_Quantity.text = self.SalesReceiptLineAdd.Quantity
+            if self.SalesReceiptLineAdd.UnitOfMeasure:
+                self.qbcom.SalesReceiptLineAdd_UnitOfMeasure = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'UnitOfMeasure')
+                self.qbcom.SalesReceiptLineAdd_UnitOfMeasure.text = self.SalesReceiptLineAdd.UnitOfMeasure
+            if self.SalesReceiptLineAdd.Rate:
+                self.qbcom.SalesReceiptLineAdd_Rate = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'Rate')
+                self.qbcom.SalesReceiptLineAdd_Rate.text = self.SalesReceiptLineAdd.Rate
+            elif self.SalesReceiptLineAdd.RatePercent:
+                self.qbcom.SalesReceiptLineAdd_RatePercent = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'RatePercent')
+                self.qbcom.SalesReceiptLineAdd_RatePercent.text = self.SalesReceiptLineAdd.RatePercent
+            elif self.SalesReceiptLineAdd.PriceLevelRef.ListID or self.SalesReceiptLineAdd.PriceLevelRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_PriceLevelRef = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'PriceLevelRef')
+                if self.SalesReceiptLineAdd.PriceLevelRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_PriceLevelRef_ListID = ET.SubElement(self.qbcom.SalesReceiptLineAdd_PriceLevelRef, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_PriceLevelRef_ListID.text = self.SalesReceiptLineAdd.PriceLevelRef.ListID
+                elif self.SalesReceiptLineAdd.PriceLevelRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_PriceLevelRef_FullName = ET.SubElement(self.qbcom.SalesReceiptLineAdd_PriceLevelRef, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_PriceLevelRef_FullName.text = self.SalesReceiptLineAdd.PriceLevelRef.FullName
+            if self.SalesReceiptLineAdd.ClassRef.ListID or self.SalesReceiptLineAdd.ClassRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_ClassRef = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'ClassRef')
+                if self.SalesReceiptLineAdd.ClassRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_ClassRef_ListID = ET.SubElement(self.qbcom.SalesReceiptLineAdd_ClassRef, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_ClassRef_ListID.text = self.SalesReceiptLineAdd.ClassRef.ListID
+                elif self.SalesReceiptLineAdd.ClassRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_ClassRef_FullName = ET.SubElement(self.qbcom.SalesReceiptLineAdd_ClassRef, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_ClassRef_FullName.text = self.SalesReceiptLineAdd.ClassRef.FullName
+            if self.SalesReceiptLineAdd.Amount:
+                self.qbcom.SalesReceiptLineAdd_Amount = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'Amount')
+                self.qbcom.SalesReceiptLineAdd_Amount.text = self.SalesReceiptLineAdd.Amount
+            if self.SalesReceiptLineAdd.OptionForPriceRuleConflict:
+                self.qbcom.SalesReceiptLineAdd_OptionForPriceRuleConflict = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'OptionForPriceRuleConflict')
+                self.qbcom.SalesReceiptLineAdd_OptionForPriceRuleConflict.text = self.SalesReceiptLineAdd.OptionForPriceRuleConflict
+            if self.SalesReceiptLineAdd.InventorySiteRef.ListID or self.SalesReceiptLineAdd.InventorySiteRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_InventorySiteRef = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'InventorySiteRef')
+                if self.SalesReceiptLineAdd.InventorySiteRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteRef_ListID = ET.SubElement(self.qbcom.SalesReceiptLineAdd_InventorySiteRef, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteRef_ListID.text = self.SalesReceiptLineAdd.InventorySiteRef.ListID
+                elif self.SalesReceiptLineAdd.InventorySiteRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteRef_FullName = ET.SubElement(self.qbcom.SalesReceiptLineAdd_InventorySiteRef, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteRef_FullName.text = self.SalesReceiptLineAdd.InventorySiteRef.FullName
+            if self.SalesReceiptLineAdd.InventorySiteLocationRef.ListID or self.SalesReceiptLineAdd.InventorySiteLocationRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'InventorySiteLocationRef')
+                if self.SalesReceiptLineAdd.InventorySiteLocationRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef_ListID = ET.SubElement(self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef_ListID.text = self.SalesReceiptLineAdd.InventorySiteLocationRef.ListID
+                elif self.SalesReceiptLineAdd.InventorySiteLocationRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef_FullName = ET.SubElement(self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef_FullName.text = self.SalesReceiptLineAdd.InventorySiteLocationRef.FullName
+            if self.SalesReceiptLineAdd.SerialNumber:
+                self.qbcom.SalesReceiptLineAdd_SerialNumber = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'SerialNumber')
+                self.qbcom.SalesReceiptLineAdd_SerialNumber.text = self.SalesReceiptLineAdd.SerialNumber
+            elif self.SalesReceiptLineAdd.LotNumber:
+                self.qbcom.SalesReceiptLineAdd_LotNumber = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'LotNumber')
+                self.qbcom.SalesReceiptLineAdd_LotNumber.text = self.SalesReceiptLineAdd.LotNumber
+            if self.SalesReceiptLineAdd.SalesTaxCodeRef.ListID or self.SalesReceiptLineAdd.SalesTaxCodeRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_SalesTaxCodeRef = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'SalesTaxCodeRef')
+                if self.SalesReceiptLineAdd.SalesTaxCodeRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_SalesTaxCodeRef_ListID = ET.SubElement(self.qbcom.SalesReceiptLineAdd_SalesTaxCodeRef, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_SalesTaxCodeRef_ListID.text = self.SalesReceiptLineAdd.SalesTaxCodeRef.ListID
+                elif self.SalesReceiptLineAdd.SalesTaxCodeRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_SalesTaxCodeRef_FullName = ET.SubElement(self.qbcom.SalesReceiptLineAdd_SalesTaxCodeRef, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_SalesTaxCodeRef_FullName.text = self.SalesReceiptLineAdd.SalesTaxCodeRef.FullName
+            if self.SalesReceiptLineAdd.OverrideItemAccountRef.ListID or self.SalesReceiptLineAdd.OverrideItemAccountRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_OverrideItemAccountRef = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'OverrideItemAccountRef')
+                if self.SalesReceiptLineAdd.OverrideItemAccountRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_OverrideItemAccountRef_ListID = ET.SubElement(self.qbcom.SalesReceiptLineAdd_OverrideItemAccountRef, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_OverrideItemAccountRef_ListID.text = self.SalesReceiptLineAdd.OverrideItemAccountRef.ListID
+                elif self.SalesReceiptLineAdd.OverrideItemAccountRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_OverrideItemAccountRef_FullName = ET.SubElement(self.qbcom.SalesReceiptLineAdd_OverrideItemAccountRef, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_OverrideItemAccountRef_FullName.text = self.SalesReceiptLineAdd.OverrideItemAccountRef.FullName
+            if self.SalesReceiptLineAdd.Other1:
+                self.qbcom.SalesReceiptLineAdd_Other1 = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'Other1')
+                self.qbcom.SalesReceiptLineAdd_Other1.text = self.SalesReceiptLineAdd.Other1
+            if self.SalesReceiptLineAdd.Other2:
+                self.qbcom.SalesReceiptLineAdd_Other2 = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'Other2')
+                self.qbcom.SalesReceiptLineAdd_Other2.text = self.SalesReceiptLineAdd.Other2
+            if (self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardNumber or
+                self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultCode):
+                self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'CreditCardTxnInfo')
+                if (self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardNumber):
+                    self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo = ET.SubElement(self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo, 'CreditCardTxnInputInfo')
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardNumber:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardNumber = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CreditCardNumber')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardNumber.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardNumber
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.ExpirationMonth:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_ExpirationMonth = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'ExpirationMonth')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_ExpirationMonth.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.ExpirationMonth
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.ExpirationYear:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_ExpirationYear = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'ExpirationYear')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_ExpirationYear.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.ExpirationYear
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.NameOnCard:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_NameOnCard = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'NameOnCard')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_NameOnCard.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.NameOnCard
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardAddress:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardAddress = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CreditCardAddress')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardAddress.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardAddress
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardPostalCode:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardPostalCode = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CreditCardPostalCode')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CreditCardPostalCode.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CreditCardPostalCode
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CommercialCardCode:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CommercialCardCode = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CommercialCardCode')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CommercialCardCode.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CommercialCardCode
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.TransactionMode:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_TransactionMode = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'TransactionMode')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_TransactionMode.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.TransactionMode
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CrediCardTxnType:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CrediCardTxnType = ET.SubElement(self.qbcom.CreditCardTxnInputInfo, 'CrediCardTxnType')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnInputInfo_CrediCardTxnType.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnInputInfo.CrediCardTxnType
+                if (self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultCode):
+                    self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo = ET.SubElement(self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo, 'CreditCardTxnResultInfo')
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultCode:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_ResultCode = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'ResultCode')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_ResultCode.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultCode
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultMessage:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_ResultMessage = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'ResultMessage')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_ResultMessage.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ResultMessage
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.CreditCardTransID:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_CreditCardTransID = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'CreditCardTransID')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_CreditCardTransID.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.CreditCardTransID
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.MerchantAccountNumber:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_MerchantAccountNumber = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'MerchantAccountNumber')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_MerchantAccountNumber.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.MerchantAccountNumber
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.AuthorizationCode:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_AuthorizationCode = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'AuthorizationCode')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_AuthorizationCode.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.AuthorizationCode
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.AVSStreet:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_AVSStreet = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'AVSStreet')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_AVSStreet.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.AVSStreet
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.AVSZip:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_AVSZip = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'AVSZip')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_AVSZip.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.AVSZip
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.CardSecurityCodeMatch:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_CardSecurityCodeMatch = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'CardSecurityCodeMatch')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_CardSecurityCodeMatch.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.CardSecurityCodeMatch
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ReconBatchID:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_ReconBatchID = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'ReconBatchID')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_ReconBatchID.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ReconBatchID
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.PaymentGroupingCode:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_PaymentGroupingCode = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'PaymentGroupingCode')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_PaymentGroupingCode.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.PaymentGroupingCode
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.PaymentStatus:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_PaymentStatus = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'PaymentStatus')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_PaymentStatus.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.PaymentStatus
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.TxnAuthorizationTime:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_TxnAuthorizationTime = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'TxnAuthorizationTime')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_TxnAuthorizationTime.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.TxnAuthorizationTime
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.TxnAuthorizationStamp:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_TxnAuthorizationStamp = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'TxnAuthorizationStamp')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_TxnAuthorizationStamp.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.TxnAuthorizationStamp
+                    if self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ClientTransID:
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_ClientTransID = ET.SubElement(self.qbcom.CreditCardTxnResultInfo, 'ClientTransID')
+                        self.qbcom.SalesReceiptLineAdd_CreditCardTxnInfo_CreditCardTxnResultInfo_ClientTransID.text = self.SalesReceiptLineAdd.CreditCardTxnInfo.CreditCardTxnResultInfo.ClientTransID
+            if (self.SalesReceiptLineAdd.DataExt.OwnerID or
+                    self.SalesReceiptLineAdd.DataExt.DataExtName or
+                    self.SalesReceiptLineAdd.DataExt.DataExtValue):
+                self.qbcom.SalesReceiptLineAdd_DataExt = ET.SubElement(self.qbcom.SalesReceiptLineAdd, 'DataExt')
+                if self.SalesReceiptLineAdd.DataExt.OwnerID:
+                    self.qbcom.SalesReceiptLineAdd_DataExt_OwnerID = ET.SubElement(self.qbcom.SalesReceiptLineAdd_DataExt, 'OwnerID')
+                    self.qbcom.SalesReceiptLineAdd_DataExt_OwnerID.text = self.SalesReceiptLineAdd.DataExt.OwnerID
+                if self.SalesReceiptLineAdd.DataExt.DataExtName:
+                    self.qbcom.SalesReceiptLineAdd_DataExt_DataExtName = ET.SubElement(self.qbcom.SalesReceiptLineAdd_DataExt, 'DataExtName')
+                    self.qbcom.SalesReceiptLineAdd_DataExt_DataExtName.text = self.SalesReceiptLineAdd.DataExt.DataExtName
+                if self.SalesReceiptLineAdd.DataExt.DataExtValue:
+                    self.qbcom.SalesReceiptLineAdd_DataExt_DataExtValue = ET.SubElement(self.qbcom.SalesReceiptLineAdd_DataExt, 'DataExtValue')
+                    self.qbcom.SalesReceiptLineAdd_DataExt_DataExtValue.text = self.SalesReceiptLineAdd.DataExt.DataExtValue
+        elif (self.SalesReceiptLineAdd.ItemGroupRef.ListID or
+                self.SalesReceiptLineAdd.ItemGroupRef.FullName):
+            self.qbcom.SalesReceiptLineAdd = ET.SubElement(self.qbcom.SalesReceiptAdd, 'SalesReceiptLineAdd')
+            if self.SalesReceiptLineAdd.ItemGroupRef.ListID or self.SalesReceiptLineAdd.ItemGroupRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_ItemGroupRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'ItemGroupRef')
+                if self.SalesReceiptLineAdd.ItemGroupRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_ItemGroupRef_ListID = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_ItemGroupRef_ListID.text = self.SalesReceiptLineAdd.ItemGroupRef.ListID
+                elif self.SalesReceiptLineAdd.ItemGroupRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_ItemGroupRef_FullName = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_ItemGroupRef_FullName.text = self.SalesReceiptLineAdd.ItemGroupRef.FullName
+            if self.SalesReceiptLineAdd.Quantity:
+                self.qbcom.SalesReceiptLineAdd_Quantity = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'Quantity')
+                self.qbcom.SalesReceiptLineAdd_Quantity.text = self.SalesReceiptLineAdd.Quantity
+            if self.SalesReceiptLineAdd.UnitOfMeasure:
+                self.qbcom.SalesReceiptLineAdd_UnitOfMeasure = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'UnitOfMeasure')
+                self.qbcom.SalesReceiptLineAdd_UnitOfMeasure.text = self.SalesReceiptLineAdd.UnitOfMeasure
+            if self.SalesReceiptLineAdd.InventorySiteRef.ListID or self.SalesReceiptLineAdd.InventorySiteRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_InventorySiteRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'InventorySiteRef')
+                if self.SalesReceiptLineAdd.InventorySiteRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteRef_ListID = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteRef_ListID.text = self.SalesReceiptLineAdd.InventorySiteRef.ListID
+                elif self.SalesReceiptLineAdd.InventorySiteRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteRef_FullName = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteRef_FullName.text = self.SalesReceiptLineAdd.InventorySiteRef.FullName
+            if self.SalesReceiptLineAdd.InventorySiteLocationRef.ListID or self.SalesReceiptLineAdd.InventorySiteLocationRef.FullName:
+                self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef = ET.SubElement(self.qbcom.SalesReceiptAdd, 'InventorySiteLocationRef')
+                if self.SalesReceiptLineAdd.InventorySiteLocationRef.ListID:
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef_ListID = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'ListID')
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef_ListID.text = self.SalesReceiptLineAdd.InventorySiteLocationRef.ListID
+                elif self.SalesReceiptLineAdd.InventorySiteLocationRef.FullName:
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef_FullName = ET.SubElement(self.qbcom.ApplyCreditCardChargeToTxnAdd, 'FullName')
+                    self.qbcom.SalesReceiptLineAdd_InventorySiteLocationRef_FullName.text = self.SalesReceiptLineAdd.InventorySiteLocationRef.FullName
+            if self.SalesReceiptLineAdd.DataExt.OwnerID or self.SalesReceiptLineAdd.DataExt.DataExtName or self.SalesReceiptLineAdd.DataExt.DataExtValue:
+                self.qbcom.SalesReceiptLineAdd_DataExt = ET.SubElement(self.qbcom.SalesReceiptAdd, 'DataExt')
+                if self.SalesReceiptLineAdd.DataExt.OwnerID:
+                    self.qbcom.SalesReceiptLineAdd_DataExt_OwnerID = ET.SubElement(self.qbcom.SalesReceiptLineAdd.DataExt, 'OwnerID')
+                    self.qbcom.SalesReceiptLineAdd_DataExt_OwnerID.text = self.SalesReceiptLineAdd.DataExt.OwnerID
+                if self.SalesReceiptLineAdd.DataExt.DataExtName:
+                    self.qbcom.SalesReceiptLineAdd_DataExt_DataExtName = ET.SubElement(self.qbcom.SalesReceiptLineAdd.DataExt, 'DataExtName')
+                    self.qbcom.SalesReceiptLineAdd_DataExt_DataExtName.text = self.SalesReceiptLineAdd.DataExt.DataExtName
+                if self.SalesReceiptLineAdd.DataExt.DataExtValue:
+                    self.qbcom.SalesReceiptLineAdd_DataExt_DataExtValue = ET.SubElement(self.qbcom.SalesReceiptLineAdd.DataExt, 'DataExtValue')
+                    self.qbcom.SalesReceiptLineAdd_DataExt_DataExtValue.text = self.SalesReceiptLineAdd.DataExt.DataExtValue
+        if self.IncludeRetElement:
+            for item in self.IncludeRetElemenet:
+                self.qbcom.IncludeRetElement = ET.SubElement(self.qbcom.SalesReceiptAddRq, 'IncludeRetElement')
                 self.qbcom.IncludeRetElement.text = item

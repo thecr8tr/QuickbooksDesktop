@@ -47,8 +47,6 @@ class Quickbooks:
 
         self.resp = None
         try:
-            ### add xml header
-#            self.QBXMLMsgRq = ET.SubElement(self.QBXML, 'QBXMLMsgsRq')
             xmltext = '<?xml version="1.0" ?>\n<?qbxml version="13.0"?>\n'
             print(ET.tostring(self.QBXML))
             xmlbody = minidom.parseString(ET.tostring(self.QBXML))

@@ -4,13 +4,14 @@ __author__ = 'thecr8tr'
 
 from quickbooks import request
 
-### List request and xmlfile writer
-#q = request.query('C:\\Users\\Travis\\Desktop\\QB Sandbox\\Fast Trac Pizza, Inc. 04-14-2015QBW.QBW')
-#q.request_ID = 'AccountQueryRq'
-#q.query_request()
-#xmlfile = open('C:\\Users\\Travis\\Desktop\\QB Sandbox\\Account.xml', 'w')
-#xmlfile.write(q.response)
-#xmlfile.close()
+
+## List request and xmlfile writer
+q = request.query('')
+q.request_ID = 'VendorQueryRq'
+q.query_request()
+xmlfile = open('C:\\Users\\Travis\\Desktop\\QB Sandbox\\Vendor.xml', 'w')
+xmlfile.write(q.response)
+xmlfile.close()
 
 
 ### Most Basic Deposit Entry
@@ -61,4 +62,4 @@ from quickbooks import request
 #q.add_request()
 
 
-print(q.response)
+#print(q.response)

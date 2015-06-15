@@ -7,14 +7,15 @@ __author__ = 'thecr8tr'
 
 import xml.etree.ElementTree as ET
 
-xmlfile = open('C:\\Users\\Travis\\Desktop\\QB Sandbox\\Account.xml', 'r')
+xmlfile = open('C:\\Users\\Travis\\Desktop\\QB Sandbox\\Vendor.xml', 'r')
 data = xmlfile.read()
 xmlfile.close()
 tree = ET.fromstring(data)
 
-outputfile = open('C:\\Users\\Travis\\Desktop\\QB Sandbox\\Account.csv', 'w')
+outputfile = open('C:\\Users\\Travis\\Desktop\\QB Sandbox\\Vendor.csv', 'w')
 
-for branch in tree.iter('AccountRet'):
+for branch in tree.iter('VendorRet'):
+    print(branch[4])
     ListID = branch[0].text
     outputfile.write(ListID + ', ')
     Name = branch[4].text
