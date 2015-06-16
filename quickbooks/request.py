@@ -128,7 +128,8 @@ class query(object):
         try:
             # Dynamically call the function to set the attributes for the object (ie search_parameter.set_CustomerQueryRq_attributes())
             getattr(search_parameter, 'set_{}_attributes'.format(self.request_ID))(self)
-        except AttributeError:
+        except AttributeError as e:
+            print(e)
             warn('set_{}_attributes does not exist'.format(self.request_ID))
 
         self.qbcom.start_session()
